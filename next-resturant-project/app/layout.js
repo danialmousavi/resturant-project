@@ -1,5 +1,6 @@
-import Bootstrap from "@/components/libs/bootstrap";
+import Bootstrap from "@/components/libs/Bootstrap";
 import "./globals.css";
+import Header from "@/components/modules/Header/Header";
 
 
 export const metadata = {
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body>
+        <Header/>
         {children}
         <Bootstrap/>
       </body>

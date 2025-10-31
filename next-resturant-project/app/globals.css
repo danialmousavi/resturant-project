@@ -1305,3 +1305,10 @@ a:focus {
     width: 50%;
   }
 }
+.carousel-indicators li {
+  list-style: none;
+}
+
+.carousel-indicators li::marker {
+  content: "";
+}
