@@ -1,3 +1,4 @@
+import About from "@/components/modules/AboutSection/About";
 import Features from "@/components/modules/Features/Featurse";
 import FoodSections from "@/components/modules/ProductsTab/FoodSections";
 import { GetFetch } from "@/utils/services/fetcher";
@@ -10,6 +11,7 @@ export default async function Home() {
     <>
       <Features />
       <FoodSections tabList={data.tabList} tabPanel={data.tabPanel}/>
+      <About/>
     </>
   );
 }
