@@ -2,6 +2,7 @@ import Bootstrap from "@/components/libs/Bootstrap";
 import "./globals.css";
 import Header from "@/components/modules/Header/Header";
 import ToastContainer from"@/components/Toastify/Toastify"
+import Footer from "@/components/modules/Footer/Footer";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
       <body>
         <Header/>
         {children}
+        <Footer/>
         <Bootstrap/>
         <ToastContainer/>
       </body>
