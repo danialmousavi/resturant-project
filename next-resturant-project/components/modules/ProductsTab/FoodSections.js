@@ -45,7 +45,7 @@ export default function FoodSections({ tabPanel, tabList }) {
           <div className="row grid">
             {activeProducts.length > 0 ? (
               activeProducts.map((item) => (
-                <ProductCart item={item}/>
+                <ProductCart key={item.id} item={item}/>
               ))
             ) : (
               <p className="text-center text-muted">
