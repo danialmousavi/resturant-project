@@ -8,8 +8,6 @@ import { toast } from "react-toastify";
 
 export default function ContactForm() {
 
-  console.log(status);
-
   return (
     <div className="form_container">
       <Formik
