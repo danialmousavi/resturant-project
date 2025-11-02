@@ -1,6 +1,6 @@
 @import 'bootstrap/dist/css/bootstrap.rtl.min.css';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
-
+/* @import 'react-toastify/dist/ReactToastify.css'; */
 @font-face {
   font-family: "Vazir";
   src: url(../public/fonts/Vazir.eot);
@@ -1313,3 +1313,7 @@ a:focus {
   content: "";
 }
 
+.Toastify__toast-body {
+  font-family: "Vazir", sans-serif !important;
+  direction: rtl;
+}

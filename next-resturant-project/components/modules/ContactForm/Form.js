@@ -1,18 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+
 import sendMessage from "@/utils/actions/Contact";
+import { validationSchema } from "@/utils/Schema/ContactSchmae";
+import { toast } from "react-toastify";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState("");
-
-  const validationSchema = Yup.object({
-    name: Yup.string().required("وارد کردن نام الزامی است"),
-    email: Yup.string().email("ایمیل معتبر نیست").required("ایمیل الزامی است"),
-    subject: Yup.string().required("موضوع پیام الزامی است"),
-    text: Yup.string().required("متن پیام الزامی است"),
-  });
 
   console.log(status);
 
@@ -26,10 +20,28 @@ export default function ContactForm() {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const result = await sendMessage(values); // ارسال به اکشن سرور
           if (result?.success) {
-            setStatus("✅ پیام ارسال شد");
+            toast.success("پیام با موفقیت ارسال شد", {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
             resetForm();
           } else {
-            setStatus("❌ خطا در ارسال پیام");
+            toast.error("مشکلی پیش آمده بعدا تلاش کنید", {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });
           }
           setSubmitting(false);
         }}
@@ -98,8 +110,6 @@ export default function ContactForm() {
               {isSubmitting ? "در حال ارسال..." : "ارسال پیام"}
             </button>
 
-            {/* پیام وضعیت ارسال */}
-            {status && <div className="mt-3 alert alert-info">{status}</div>}
           </Form>
         )}
       </Formik>
