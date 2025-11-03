@@ -37,7 +37,7 @@ export default function Footer() {
                 <div className="col-md-4 footer-col">
                     <div className="footer_detail">
                         <a href="" className="footer-logo">
-                            webprog.io
+                            Resturant
                         </a>
                         <p>
                             لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.

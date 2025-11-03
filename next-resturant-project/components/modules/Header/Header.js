@@ -20,7 +20,7 @@ export default function Header() {
                         <nav className="navbar navbar-expand-lg custom_nav-container">
                             <Link className="navbar-brand" href="/">
                                 <span>
-                                    webprog.io
+                                    Resturant
                                 </span>
                             </Link>
 
