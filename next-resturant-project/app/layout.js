@@ -1,8 +1,9 @@
 import Bootstrap from "@/components/libs/Bootstrap";
 import "./globals.css";
 import Header from "@/components/modules/Header/Header";
-import ToastContainer from"@/components/Toastify/Toastify"
+import ToastContainer from "@/components/Toastify/Toastify";
 import Footer from "@/components/modules/Footer/Footer";
+import ProgressProviders from "@/components/libs/ProgressBarProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,11 +14,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body>
-        <Header/>
-        {children}
-        <Footer/>
-        <Bootstrap/>
-        <ToastContainer/>
+        <ProgressProviders>
+          <Header />
+          {children}
+          <Footer />
+          <Bootstrap />
+          <ToastContainer />
+        </ProgressProviders>
       </body>
     </html>
   );
