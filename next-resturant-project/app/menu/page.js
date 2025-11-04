@@ -1,12 +1,11 @@
-import CategoryList from '@/components/menu/categoryList'
+import CategoryList from '@/components/menu/CategoryList';
 import ProductList from '@/components/menu/ProductList';
 import { GetFetch } from '@/utils/services/fetcher'
 import React from 'react'
 
-export default async function page() {
+export default async function page({searchParams}) {
     const categories=await GetFetch("categories");
-    console.log("categories",categories);
-    
+    const params = new URLSearchParams(searchParams)
   return (
     <section className="food_section layout_padding">
         <div className="container">
@@ -52,7 +51,7 @@ export default async function page() {
                         </div>
                     </div>
                 </div>
-                <ProductList/>
+                <ProductList params={params.toString()}/>
             </div>
         </div>
     </section>

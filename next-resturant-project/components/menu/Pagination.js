@@ -1,25 +1,27 @@
-import React from "react";
+"use client"
 
-export default function Pagination() {
-  return (
-    <nav className="d-flex justify-content-center mt-5">
-      <ul className="pagination">
-        <li className="page-item active">
-          <a className="page-link" href="#">
-            1
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            2
-          </a>
-        </li>
-        <li className="page-item">
-          <a className="page-link" href="#">
-            3
-          </a>
-        </li>
-      </ul>
-    </nav>
-  );
+import { usePathname, useRouter } from "next/navigation";
+
+export default function Paginate({ links }) {
+    const pathname = usePathname();
+    const router = useRouter();
+
+    function handlePage(page) {
+        const params = new URLSearchParams();
+        params.set('page', page)
+
+        router.replace(`${pathname}?${params.toString()}`)
+    }
+
+    return (
+        <nav className="d-flex justify-content-center mt-5">
+            <ul className="pagination">
+                {links.slice(1, -1).map((link, index) => (
+                    <li key={index} className={link.active ? "page-item active" : "page-item"}>
+                        <button onClick={() => handlePage(link.label)} className="page-link">{link.label}</button>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    )
 }
