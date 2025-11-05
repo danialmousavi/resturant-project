@@ -19,7 +19,7 @@ export default function NotFound() {
 
         <Link
           href="/"
-          className="btn px-4 py-2 rounded-pill fw-semibold shadow-sm"
+          className="btn px-4 py-2 rounded-pill fw-semibold shadow-sm "
           style={{
             backgroundColor: "#ffbe33",
             color: "#fff",
