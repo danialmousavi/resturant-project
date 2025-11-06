@@ -1,7 +1,9 @@
 import CategoryList from '@/components/menu/CategoryList';
+import Loading from '@/components/menu/Loading';
 import ProductList from '@/components/menu/ProductList';
+import Search from '@/components/menu/Search';
 import { GetFetch } from '@/utils/services/fetcher'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 export default async function page({searchParams}) {
     const categories=await GetFetch("categories");
@@ -11,15 +13,7 @@ export default async function page({searchParams}) {
         <div className="container">
             <div className="row">
                 <div className="col-sm-12 col-lg-3">
-                    <div>
-                        <label className="form-label">جستجو</label>
-                        <div className="input-group mb-3">
-                            <input type="text" className="form-control" placeholder="نام محصول ..." />
-                            <a href="#" className="input-group-text">
-                                <i className="bi bi-search"></i>
-                            </a>
-                        </div>
-                    </div>
+                    <Search/>
                     <hr />
                         <CategoryList categories={categories}/>
                     <hr />
@@ -51,7 +45,9 @@ export default async function page({searchParams}) {
                         </div>
                     </div>
                 </div>
-                <ProductList params={params.toString()}/>
+                <Suspense key={params.toString()}  fallback={<Loading/>}>
+                    <ProductList params={params.toString()}/>
+                </Suspense>
             </div>
         </div>
     </section>
