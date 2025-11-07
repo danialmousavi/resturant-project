@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { getBlurDataURL } from "@/utils/helper";
+import Link from "next/link";
 
 export default function ProductCart({item}) {
   return (
@@ -8,6 +9,7 @@ export default function ProductCart({item}) {
       <div className="box">
         <div>
           <div className="img-box">
+            <Link href={`/product/${item.slug}`}>
             <Image
               src={item.primary_image}
               width="100"
@@ -17,10 +19,13 @@ export default function ProductCart({item}) {
               alt={item.name}
               placeholder="blur"
               blurDataURL={getBlurDataURL()}
-            />
+              />
+              </Link>
           </div>
           <div className="detail-box">
+            <Link href={`/product/${item.slug}`}>
             <h5>{item.name}</h5>
+            </Link>
             <p>{item.description}</p>
             <div className="options">
               <h6>
