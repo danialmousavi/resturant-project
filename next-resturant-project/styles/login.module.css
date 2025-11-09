@@ -1,0 +1,61 @@
+
+.authSection {
+  background: linear-gradient(180deg, #ffb347 0%, #f5a623 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Vazirmatn", sans-serif;
+}
+
+.cardBox {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.cardBox:hover {
+  transform: translateY(-5px);
+}
+
+.title {
+  color: #f5a623;
+  font-weight: 700;
+}
+
+.input {
+  border: 2px solid #f5a623 !important;
+  border-radius: 10px !important;
+  transition: all 0.2s;
+}
+
+.input:focus {
+  border-color: #ffb347 !important;
+  box-shadow: 0 0 0 0.25rem rgba(255, 179, 71, 0.3) !important;
+}
+
+/* دکمه */
+.btnAuth {
+  background-color: #f5a623 !important;
+  color: #fff !important;
+  border: none !important;
+  transition: all 0.3s ease;
+}
+
+.btnAuth:hover {
+  background-color: #e29400 !important;
+  transform: scale(1.03);
+}
+
+/* لینک بازگشت */
+.backLink {
+  color: #f5a623;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
