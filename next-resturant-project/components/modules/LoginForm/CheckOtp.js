@@ -3,58 +3,47 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from "@/styles/login.module.css";
-import LoginAction from "@/utils/actions/Auth";
 import { toast } from "react-toastify";
 import { otpSchema } from "@/utils/Schema/OtpSchema";
+import { CheckOtpAction } from "@/utils/actions/Auth";
 
 
 export default function CheckOtp() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
-    console.log(values);
+    setLoading(true);   
+    const result=await CheckOtpAction(values);
+    console.log("result",result);
     
-    // setLoading(true);   
-    // console.log(values);
-    // const result=await LoginAction(values)
-    // console.log(result);
-    // if(result.success){
-    //         toast.success("کد با موفقیت ارسال شد", {
-    //           position: "bottom-right",
-    //           autoClose: 2000,
-    //           hideProgressBar: false,
-    //           closeOnClick: false,
-    //           pauseOnHover: true,
-    //           draggable: true,
-    //           progress: undefined,
-    //           theme: "colored",
-    //         });      
-    //         setLoading(false)
-    //         resetForm()
-    // }else{
-    //         toast.error("متاسفیم مشکلی پیش آمده است", {
-    //           position: "bottom-right",
-    //           autoClose: 2000,
-    //           hideProgressBar: false,
-    //           closeOnClick: false,
-    //           pauseOnHover: true,
-    //           draggable: true,
-    //           progress: undefined,
-    //           theme: "colored",
-    //         });      
-    //         resetForm()
-    // }
-    // try {
-    //   // شبیه‌سازی درخواست به سرور
-    //   await new Promise((resolve) => setTimeout(resolve, 1500));
+    if(result.success){
+            toast.success("شما با موفقیت وارد شدید", {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });      
+            setLoading(false)
+            resetForm()
+    }else{
+            toast.error("متاسفیم مشکلی پیش آمده است", {
+              position: "bottom-right",
+              autoClose: 2000,
+              hideProgressBar: false,
+              closeOnClick: false,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+            });      
+            setLoading(false)
+            resetForm()
+    }
 
-    //   alert(`شماره ${values.phone} ارسال شد ✅`);
-    //   resetForm();
-    // } catch (err) {
-    //   console.error("Error:", err);
-    // } finally {
-    //   setLoading(false);
-    // }
   };
 
   return (
