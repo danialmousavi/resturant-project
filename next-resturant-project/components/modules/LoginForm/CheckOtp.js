@@ -3,46 +3,47 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from "@/styles/login.module.css";
-import { LoginSchema } from "@/utils/Schema/LoginScema";
 import LoginAction from "@/utils/actions/Auth";
 import { toast } from "react-toastify";
+import { otpSchema } from "@/utils/Schema/OtpSchema";
 
 
-export default function LoginForm({setStep}) {
+export default function CheckOtp() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values, { resetForm }) => {
-    setLoading(true);
     console.log(values);
-    const result=await LoginAction(values)
-    console.log(result);
-    if(result.success){
-            toast.success("کد با موفقیت ارسال شد", {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });      
-            setLoading(false)
-            resetForm()
-            setStep(2)
-    }else{
-            toast.error("متاسفیم مشکلی پیش آمده است", {
-              position: "bottom-right",
-              autoClose: 2000,
-              hideProgressBar: false,
-              closeOnClick: false,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-            });      
-            resetForm()
-    }
+    
+    // setLoading(true);   
+    // console.log(values);
+    // const result=await LoginAction(values)
+    // console.log(result);
+    // if(result.success){
+    //         toast.success("کد با موفقیت ارسال شد", {
+    //           position: "bottom-right",
+    //           autoClose: 2000,
+    //           hideProgressBar: false,
+    //           closeOnClick: false,
+    //           pauseOnHover: true,
+    //           draggable: true,
+    //           progress: undefined,
+    //           theme: "colored",
+    //         });      
+    //         setLoading(false)
+    //         resetForm()
+    // }else{
+    //         toast.error("متاسفیم مشکلی پیش آمده است", {
+    //           position: "bottom-right",
+    //           autoClose: 2000,
+    //           hideProgressBar: false,
+    //           closeOnClick: false,
+    //           pauseOnHover: true,
+    //           draggable: true,
+    //           progress: undefined,
+    //           theme: "colored",
+    //         });      
+    //         resetForm()
+    // }
     // try {
     //   // شبیه‌سازی درخواست به سرور
     //   await new Promise((resolve) => setTimeout(resolve, 1500));
@@ -58,27 +59,27 @@ export default function LoginForm({setStep}) {
 
   return (
     <Formik
-      initialValues={{ cellphone: "" }}
-      validationSchema={LoginSchema}
+      initialValues={{ otp: "" }}
+      validationSchema={otpSchema}
       onSubmit={handleSubmit}
     >
       {({ handleSubmit }) => (
         <Form onSubmit={handleSubmit}>
           <div className="mb-3 text-start">
-            <label htmlFor="cellphone" className="form-label">
-              شماره موبایل
+            <label htmlFor="otp" className="form-label">
+              کد ورود
             </label>
 
             <Field
               type="tel"
-              name="cellphone"
-              placeholder="مثلاً 09123456789"
+              name="otp"
+              placeholder="123456"
               className="form-control text-center"
               dir="ltr"
             />
 
             <ErrorMessage
-              name="cellphone"
+              name="otp"
               component="div"
               className={styles.errorText}
             />
@@ -94,7 +95,7 @@ export default function LoginForm({setStep}) {
                 در حال ارسال...
               </>
             ) : (
-              "ورود"
+              "تایید"
             )}
           </button>
         </Form>

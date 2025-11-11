@@ -15,12 +15,12 @@ export default async function LoginAction(values) {
     console.log("resssssssssss", res);
     if (res.status == 200) {
         const data=await res.json();
-        console.log("dataaaaaaaaaaa",data);
         cookies().set({
           name:"loginToken",
           value:data.data.login_token,
           httpOnly:true,
-          path:"/"
+          path:"/",
+          maxAge:60*60*24
         })
               return {
         data,

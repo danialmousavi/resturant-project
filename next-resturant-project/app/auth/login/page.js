@@ -1,9 +1,12 @@
-    import React from "react";
+"use client"
+import React, { useState } from "react";
     import styles from "@/styles/login.module.css";
     import Link from "next/link";
     import Form from "@/components/modules/LoginForm/Form";
+    import CheckOtp from "@/components/modules/LoginForm/CheckOtp";
 
     export default function LoginPage() {
+        const [step,setStep]=useState(1)
     return (
         <section className={`${styles.authSection}`}>
         <div className="container">
@@ -12,10 +15,14 @@
                 <div className={`${styles.cardBox} text-center p-4`}>
                 <h2 className={`${styles.title} mb-4`}>ورود به حساب کاربری</h2>
                 <p className="text-muted mb-4">
-                    برای ورود ، شماره موبایل خود را وارد کنید 🍔
+                  {step==1?"  برای ورود ، شماره موبایل خود را وارد کنید 🍔":"  برای ورود ، کد ارسال شده به شماره تماس را وارد کنید🍔"}
                 </p>
-                    <Form/>
-
+                {step==1&&(
+                    <Form setStep={setStep}/>
+                )}
+                {step==2&&(
+                    <CheckOtp/>
+                )}
                 <div className="mt-4">
                     <Link href="/" className={styles.backLink}>
                     بازگشت به صفحه اصلی
