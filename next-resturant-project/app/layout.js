@@ -4,6 +4,7 @@ import Header from "@/components/modules/Header/Header";
 import ToastContainer from "@/components/Toastify/Toastify";
 import Footer from "@/components/modules/Footer/Footer";
 import ProgressProviders from "@/components/libs/ProgressBarProvider";
+import { AuthProvider } from "@/utils/context/AuthContext";
 
 export const metadata = {
   title: "Create Next App",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
       <body>
+        <AuthProvider>
         <ProgressProviders>
           <Header />
           {children}
@@ -21,6 +23,7 @@ export default function RootLayout({ children }) {
           <Bootstrap />
           <ToastContainer />
         </ProgressProviders>
+        </AuthProvider>
       </body>
     </html>
   );

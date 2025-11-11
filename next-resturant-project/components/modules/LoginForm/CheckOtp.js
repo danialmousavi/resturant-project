@@ -1,20 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from "@/styles/login.module.css";
 import { toast } from "react-toastify";
 import { otpSchema } from "@/utils/Schema/OtpSchema";
 import { CheckOtpAction } from "@/utils/actions/Auth";
+import AuthContext from "@/utils/context/AuthContext";
 
 
 export default function CheckOtp() {
   const [loading, setLoading] = useState(false);
-
+  const {loginContext}=useContext(AuthContext)
   const handleSubmit = async (values, { resetForm }) => {
     setLoading(true);   
     const result=await CheckOtpAction(values);
-    console.log("result",result);
+    console.log("resulttttttttttttttttttt",result);
     
     if(result.success){
             toast.success("شما با موفقیت وارد شدید", {
@@ -29,6 +30,7 @@ export default function CheckOtp() {
             });      
             setLoading(false)
             resetForm()
+            loginContext(result?.data);
     }else{
             toast.error("متاسفیم مشکلی پیش آمده است", {
               position: "bottom-right",
