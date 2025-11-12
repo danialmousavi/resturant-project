@@ -83,7 +83,7 @@ export async function CheckOtpAction(values) {
   }
 }
 export async function me() {
-    const token = cookies().get('Token').value
+    const token = cookies().get('Token')?.value
 
     if (!token) {
         return {
@@ -111,4 +111,49 @@ export async function me() {
         }
     }
 
+}
+export async function ResendOtpAction() {
+  const loginToken = cookies().get("loginToken").value;
+  if (!loginToken) {
+    return {
+      success: false,
+      message: "توکن معتبر نیست لطفا مجددا تلاش کنید",
+    };
+  }
+  console.log("loginToken", loginToken);
+  try {
+    const res = await fetch("http://localhost:8000/api/auth/resend-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({
+        login_token: loginToken,
+      }),
+    });
+    if (res.status == 200) {
+      const data = await res.json();
+      
+        cookies().set({
+          name:"loginToken",
+          value:data.data.login_token,
+          httpOnly:true,
+          path:"/",
+          maxAge:60*60*24
+        })
+        return {
+            success: true,
+            message: "کد ورود دوباره برای شما ارسال شد",
+        }
+    } else {
+        return {
+            success: false,
+            message: data.message,
+        }
+    }
+  } catch (err) {
+    console.log("❌ خطا:", err);
+    return { success: false ,message:"متاسفیم مشکلی پیش آمده است"};
+  }
 }
