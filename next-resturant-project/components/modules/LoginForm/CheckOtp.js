@@ -14,8 +14,8 @@ export default function CheckOtp() {
   const { loginContext } = useContext(AuthContext);
   const router=useRouter()
   // 🕒 تایمر (قابل تنظیم)
-  const [minutes, setMinutes] = useState(0); // ← زمان دقیقه‌ها
-  const [seconds, setSeconds] = useState(5); // ← زمان ثانیه‌ها
+  const [minutes, setMinutes] = useState(1); // ← زمان دقیقه‌ها
+  const [seconds, setSeconds] = useState(0); // ← زمان ثانیه‌ها
   const [isExpired, setIsExpired] = useState(false);
 
   // 🎯 تابع ارسال مجدد کد
