@@ -2,21 +2,43 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validationSchemaUser } from "@/utils/Schema/PrpfileEditUserSchema";
+import UserEditForm from "@/utils/actions/profile/UserEditForm";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function EditForm({ user }) {
   const [loading, setLoading] = useState(false);
-
+  const router = useRouter();
   const initialValues = {
     name: user?.name || "",
     email: user?.email || "",
   };
 
-
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       setLoading(true);
-        console.log(values);
-
+      console.log(values);
+      const result = await UserEditForm(values);
+      if (result.success) {
+        toast.success(result.message || "اطلاعات شما با موفقیت ویرایش شد", {
+          position: "bottom-right",
+          autoClose: 2000,
+          theme: "colored",
+        });
+        router.refresh();
+      } else {
+        toast.error( result.message || "مشکلی پیش آمده است لطفا بعدا تلاش کنید",
+          {
+            position: "bottom-right",
+            autoClose: 2000,
+            theme: "colored",
+          }
+        );
+        router.refresh();
+      }
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "خطایی رخ داد.");
     } finally {
       setLoading(false);
       setSubmitting(false);
