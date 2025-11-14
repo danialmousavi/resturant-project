@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function ProfileLayout({children}) {
@@ -8,16 +9,16 @@ export default function ProfileLayout({children}) {
                 <div className="col-sm-12 col-lg-3">
                     <ul className="list-group">
                         <li className="list-group-item">
-                            <a href="./index.html">اطلاعات کاربر</a>
+                            <Link href="/profile">اطلاعات کاربر</Link>
                         </li>
                         <li className="list-group-item">
-                            <a href="./addresses.html">آدرس ها</a>
+                            <Link href="/profile/addresses">آدرس ها</Link>
                         </li>
                         <li className="list-group-item">
-                            <a href="./orders.html">سفارشات</a>
+                            <Link href="/profile/orders">سفارشات</Link>
                         </li>
                         <li className="list-group-item">
-                            <a href="./transactions.html">تراکنش ها</a>
+                            <Link href="/profile/transactions">تراکنش ها</Link>
                         </li>
                     </ul>
                 </div>
