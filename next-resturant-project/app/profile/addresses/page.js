@@ -35,6 +35,7 @@ export default async function page() {
                   address={addr}
                   provinces={provinces}
                   cities={cities}
+                  token={token}
                 />
               </div>
             ))

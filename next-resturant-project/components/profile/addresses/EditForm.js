@@ -2,13 +2,18 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { validationSchema } from "@/utils/Schema/AddressSchema";
+import { UserAddressDeleteForm } from "@/utils/actions/profile/UserAddressForm";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function EditForm({ address, provinces = [], cities = [] }) {
   // State مدیریت استان و شهر
+  const router=useRouter()
   const [provinceId, setProvinceId] = useState(address?.province_id || 0);
   const [citiesFilter, setCitiesFilter] = useState(
     cities.filter((c) => c?.province_id === address?.province_id)
   );
+  
   const [cityId, setCityId] = useState(address?.city_id || 0);
 
   // وضعیت تغییر داده‌ها
@@ -50,10 +55,32 @@ export default function EditForm({ address, provinces = [], cities = [] }) {
       city_id: cityId,
       address_id: address.id,
     };
-    console.log("Edited Address Payload:", payload);
+    // console.log("Edited Address Payload:", payload);
     setSubmitting(false);
   };
-
+  //delete address
+  const handleDeleteAddress=async(id)=>{
+    console.log("iiiiiiiiiiiiiiiiid",id);
+    const result= await UserAddressDeleteForm(id);
+    console.log("result",result);
+     if (result.success) {
+          toast.success(result.message || "آدرس  با موفقیت حذف گردید", {
+            position: "bottom-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
+          router.refresh();
+        } else {
+          toast.error(result.message || "مشکلی پیش آمده است لطفا بعدا تلاش کنید", {
+            position: "bottom-right",
+            autoClose: 2000,
+            theme: "colored",
+          });
+          router.refresh();
+        }
+      
+    
+  }
   return (
     <Formik
       initialValues={{
@@ -143,7 +170,7 @@ export default function EditForm({ address, provinces = [], cities = [] }) {
 
             {/* دکمه‌ها */}
             <div className="d-flex justify-content-between mt-4">
-              <button type="button" className="btn btn-danger" disabled>
+              <button type="button" className="btn btn-danger" onClick={()=>handleDeleteAddress(address.id)}>
                 حذف
               </button>
 

@@ -61,3 +61,52 @@ export default async function UserAddressForm(values) {
     };
   }
 }
+export async function UserAddressDeleteForm(id) {
+  const loginToken = cookies().get("Token")?.value;
+
+  if (!loginToken) {
+    return {
+      success: false,
+      message: "توکن معتبر نیست لطفا مجددا تلاش کنید.",
+    };
+  }
+
+  try {
+    
+  const res=await fetch("http://localhost:8000/api/profile/addresses/delete",{
+      method:"POST",
+      headers:{
+        "Accept":"application/json",
+        "Content-Type":"application/json",
+        "Authorization":`Bearer ${loginToken}`
+      },
+      body:JSON.stringify({
+        address_id:id
+      })
+
+    })
+    // console.log("resssssssssssssssvvvvv",res);
+
+    const data = await res.json();
+    // console.log("dataAAAAAAAAAAAAAAAAAAAAAAAAA",data);
+    
+    // ✅ موفقیت
+    if (data.status === "success") {
+      return {
+        success: true,
+        message: "آدرس با موفقیت حذف شد",
+      };
+    }else{
+      return {
+        success: true,
+        message: "متاسفیم مشکلی پیش آمده است",
+      };
+    }
+  } catch (err) {
+    console.error("❌ خطا در ارتباط با سرور:", err);
+    return {
+      success: false,
+      message: "متاسفیم، مشکلی در ارتباط با سرور پیش آمده است.",
+    };
+  }
+}
