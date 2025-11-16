@@ -1,8 +1,11 @@
 import { cookies } from "next/headers";
+import Paginate from "./Paginate";
+import Image from "next/image";
+import { getBlurDataURL } from "@/utils/helper";
 
-export default async function Table() {
+export default async function Table({params}) {
     const token = cookies().get("Token")?.value;
-    const res = await fetch("http://localhost:8000/api/profile/orders",{
+    const res = await fetch(`http://localhost:8000/api/profile/orders?${params}`,{
         method:"GET",
         headers:{
             "Accept":"application/json",
@@ -10,7 +13,7 @@ export default async function Table() {
         }
     })
     const {data}=await res.json();
-    console.log(data);
+    console.log(data.meta.links);
     
     return (
         <>
@@ -39,15 +42,15 @@ export default async function Table() {
                                 <td>{order.created_at}</td>
                                 <td>
                                     <button type="button" className="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#modal-1">
+                                        data-bs-target={`#modal-${order.id}`}>
                                         محصولات
                                     </button>
-                                    <div className="modal fade" id="modal-1">
+                                    <div className="modal fade" id={`modal-${order.id}`}>
                                         <div className="modal-dialog modal-lg">
                                             <div className="modal-content">
                                                 <div className="modal-header">
                                                     <h6 className="modal-title">محصولات سفارش
-                                                        شماره 25</h6>
+                                                        شماره {order.id}</h6>
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal"
                                                         aria-label="Close"></button>
                                                 </div>
@@ -63,28 +66,20 @@ export default async function Table() {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <th>
-                                                                    <img src="../images/b1.jpg" width="80" alt="" />
-                                                                </th>
-                                                                <td className="fw-bold">برگر گوشت ذغالی</td>
-                                                                <td>45,000 تومان</td>
-                                                                <td>
-                                                                    2
-                                                                </td>
-                                                                <td>90,000 تومان</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>
-                                                                    <img src="../images/p1.jpg" width="80" alt="" />
-                                                                </th>
-                                                                <td className="fw-bold">پیتزا پپرونی</td>
-                                                                <td>145,000 تومان</td>
-                                                                <td>
-                                                                    1
-                                                                </td>
-                                                                <td>145,000 تومان</td>
-                                                            </tr>
+                                                            {order.order_items.map(item => (
+                                                                <tr key={item.id}>
+                                                                    <th>
+                                                                        <Image src={item.product_primary_image} width={80} height={53} alt="product-image"
+                                                                            placeholder="blur" blurDataURL={getBlurDataURL()} />
+                                                                    </th>
+                                                                    <td className="fw-bold">{item.product_name}</td>
+                                                                    <td>{item.price.toLocaleString()} تومان</td>
+                                                                    <td>
+                                                                        {item.quantity}
+                                                                    </td>
+                                                                    <td>{item.subtotal.toLocaleString()} تومان</td>
+                                                                </tr>
+                                                            ))}
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -97,13 +92,8 @@ export default async function Table() {
                     </tbody>
                 </table>
             </div>
-            <nav className="d-flex justify-content-center mt-5">
-                <ul className="pagination">
-                    <li className="page-item active"><a className="page-link" href="#">1</a></li>
-                    <li className="page-item"><a className="page-link" href="#">2</a></li>
-                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
+
+            <Paginate links={data.meta.links} />
         </>
     )
 }
