@@ -157,3 +157,44 @@ export async function ResendOtpAction() {
     return { success: false ,message:"متاسفیم مشکلی پیش آمده است"};
   }
 }
+export async function LogoutAction() {
+      const token = cookies().get('Token')?.value
+
+    if (!token) {
+        return {
+            error: 'Not Authorized'
+        }
+    }
+  try {
+    const res = await fetch("http://localhost:8000/api/auth/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization":`Bearer ${token}`,
+        accept: "application/json",
+      },
+      body: JSON.stringify({}),
+    });
+    // console.log("resssssssssss", res);
+    if (res.status == 200) {
+      const data = await res.json();
+      cookies().delete("Token")
+      return {
+        success: true,
+        message:"شما باموفقیت خارج شدید"
+      };
+    } else {
+      return {
+        success: false,
+        message:"متاسفیم مشکلی پیش آمده لطفا بعدا تلاش کنید"
+      };;
+    }
+  } catch (err) {
+    console.log("❌ خطا:", err);
+    return { 
+        success: false,
+        message:"متاسفیم مشکلی پیش آمده لطفا بعدا تلاش کنید"
+
+     };
+  }
+}
