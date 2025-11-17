@@ -1,9 +1,16 @@
+"use client"
 import React from "react";
 import Image from "next/image";
 import { getBlurDataURL } from "@/utils/helper";
 import Link from "next/link";
+import { addToCart } from "@/utils/redux/slices/cartSlice";
+import { useDispatch } from "react-redux";
 
 export default function ProductCart({item}) {
+  const dispatch=useDispatch()
+  const handleAddToCart=(product)=>{
+    dispatch(addToCart({product,qty:1}))
+  }
   return (
     <div className="col-sm-6 col-lg-4" key={item.id}>
       <div className="box">
@@ -39,9 +46,9 @@ export default function ProductCart({item}) {
                 )}
                 <span> تومان</span>
               </h6>
-              <a href="#">
+              <button onClick={()=>handleAddToCart(item)}>
                 <i className="bi bi-cart-fill text-white fs-5"></i>
-              </a>
+              </button>
             </div>
           </div>
         </div>

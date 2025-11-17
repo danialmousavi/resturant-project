@@ -5,6 +5,7 @@ import ToastContainer from "@/components/Toastify/Toastify";
 import Footer from "@/components/modules/Footer/Footer";
 import ProgressProviders from "@/components/libs/ProgressBarProvider";
 import { AuthProvider } from "@/utils/context/AuthContext";
+import Providers from "@/utils/redux/Provider";
 
 export const metadata = {
   title: "Create Next App",
@@ -16,13 +17,15 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body>
         <AuthProvider>
-        <ProgressProviders>
-          <Header />
-          {children}
-          <Footer />
-          <Bootstrap />
-          <ToastContainer />
-        </ProgressProviders>
+          <Providers>
+            <ProgressProviders>
+              <Header />
+              {children}
+              <Footer />
+              <Bootstrap />
+              <ToastContainer />
+            </ProgressProviders>
+          </Providers>
         </AuthProvider>
       </body>
     </html>
