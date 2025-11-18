@@ -95,12 +95,12 @@ export default function Header() {
                 </ul>
 
                 <div className="user_option">
-                  <a className="cart_link position-relative" href="cart.html">
+                  <Link className="cart_link position-relative" href="/cart">
                     <i className="bi bi-cart-fill text-white fs-5"></i>
                     <span className="position-absolute top-0 translate-middle badge rounded-pill">
                      {state.cart.length}
                     </span>
-                  </a>
+                  </Link>
                   {user ? (
                     <Link href="/profile" className="btn-auth">
                       پروفایل
