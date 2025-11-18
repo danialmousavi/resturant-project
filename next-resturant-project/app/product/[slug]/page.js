@@ -1,3 +1,4 @@
+import AddToCart from "@/components/modules/product/AddToCart";
 import ProductCart from "@/components/modules/product/ProductCart";
 import { getBlurDataURL } from "@/utils/helper";
 import { GetFetch } from "@/utils/services/fetcher";
@@ -36,15 +37,7 @@ export default async function ProductPage({ params }) {
                   </h6>
                   <p>{product.description}</p>
 
-                  <div className="mt-5 d-flex">
-                    <button className="btn-add">افزودن به سبد خرید</button>
-                    <div className="input-counter ms-4">
-                      <span className="plus-btn">+</span> 
-                      
-                      <div className="input-number">1</div>
-                      <span className="minus-btn">-</span>
-                    </div>
-                  </div>
+                    <AddToCart product={product}/>
                 </div>
                 <div className="col-sm-12 col-lg-6">
                   <div
