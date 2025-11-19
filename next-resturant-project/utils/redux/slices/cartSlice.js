@@ -30,3 +30,9 @@ export const cartSilce = createSlice({
 
 export const { addToCart, removeFromCart, increment, decrement, clearCart } = cartSilce.actions;
 export const cartReducer = cartSilce.reducer;
+export const totalAmountCart = ({ shoppingCart }) => {
+    return shoppingCart.cart.reduce((total, product) => {
+        console.log(product);
+        return product.is_sale ? total + (product.sale_price * product.qty) : total + (product.price * product.qty)
+    }, 0)
+}
