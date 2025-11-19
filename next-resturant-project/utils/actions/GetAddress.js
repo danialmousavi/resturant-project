@@ -25,11 +25,15 @@ export async function getAddresses() {
 
     const data = await res.json();
 
-    // console.log("dataaaaaaaaaaaaaaaaaaaaaaaaa", data);
+    console.log("dataaaaaaaaaaaaaaaaaaaaaaaaa", data);
 
     // اگر ساختار پاسخ success باشد
     if (data.status === "success") {
-       return data.data
+      return {
+        success: true,
+        message: null,
+        data: data.data ?? [],
+      };
     }
 
     // اگر سرور پاسخ error داد
