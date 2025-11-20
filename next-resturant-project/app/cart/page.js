@@ -1,6 +1,7 @@
 "use client";
 import Address from "@/components/cart/Address";
 import Coupon from "@/components/cart/Coupon";
+import { payment } from "@/utils/actions/payment/payment";
 import { getBlurDataURL, salePercent } from "@/utils/helper";
 import {
   clearCart,
@@ -11,8 +12,10 @@ import {
 } from "@/utils/redux/slices/cartSlice";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 export default function CartPage() {
   const totalAmount = useSelector(totalAmountCart);
   const [addressId, setAddressId] = useState("");
@@ -20,6 +23,28 @@ export default function CartPage() {
   const state = useSelector((state) => state.shoppingCart);
   const dispatch = useDispatch();
   const [off, setOff] = useState({ code: "", percent: 0 });
+  const router=useRouter();
+  const handlePayment = async () => {
+    const result = await payment(state.cart, addressId, off.code);
+    console.log(result);
+    if (result.status == "success") {
+      toast.success(result.message || "درحال انتقال به درگاه پرداخت", {
+        position: "bottom-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+      router.push(result.url)
+    }else{
+        toast.error(result.message || "مشکلی پیش آمده بعدا تلاش کنید", {
+        position: "bottom-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+    }
+    // console.log("addressId", addressId);
+    // console.log("cart", state.cart);
+    // console.log("coupon", off.code);
+  };
   return (
     <>
       {state.cart.length != 0 ? (
@@ -179,9 +204,19 @@ export default function CartPage() {
                             </div>
                           </li>
                         </ul>
-                        <button className="user_option btn-auth mt-4">
-                          پرداخت
-                        </button>
+                        {state.cart && addressId ? (
+                          <>
+                            <button
+                              className="user_option btn-auth mt-4"
+                              onClick={handlePayment}
+                            >
+                              پرداخت
+                            </button>
+                            ّ
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </div>
                     </div>
                   </div>

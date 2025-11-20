@@ -11,7 +11,7 @@ export const cartSilce = createSlice({
             const { product, qty } = action.payload;
             state.cart = [...state.cart, { ...product, qty: qty }]
 
-            console.log(state.cart);
+            // console.log(state.cart);
         },
         removeFromCart: (state, action) => {
             state.cart = state.cart.filter(p => p.id !== action.payload)
@@ -32,7 +32,7 @@ export const { addToCart, removeFromCart, increment, decrement, clearCart } = ca
 export const cartReducer = cartSilce.reducer;
 export const totalAmountCart = ({ shoppingCart }) => {
     return shoppingCart.cart.reduce((total, product) => {
-        console.log(product);
+        // console.log(product);
         return product.is_sale ? total + (product.sale_price * product.qty) : total + (product.price * product.qty)
     }, 0)
 }
