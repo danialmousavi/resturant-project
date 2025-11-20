@@ -79,7 +79,7 @@ export async function paymentVeriy(trackId, status) {
         body:JSON.stringify({ token: trackId, status })
     });
     const data=await res.json();
-    console.log("data paymenttttttttttttttttttttttttttt",data);
+    // console.log("data paymenttttttttttttttttttttttttttt",data);
     
     if (data.status === 'success') {
         return {
