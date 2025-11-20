@@ -67,3 +67,29 @@ export async function payment(cart, addressId, coupon) {
     message: "خطای ناشناخته از سرور",
   };
 }
+export async function paymentVeriy(trackId, status) {
+    const token = cookies().get('Token');
+    const res = await fetch('http://localhost:8000/api/payment/verify',{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+            'Authorization': `Bearer ${token.value}` 
+        },
+        body:JSON.stringify({ token: trackId, status })
+    });
+    const data=await res.json();
+    console.log("data paymenttttttttttttttttttttttttttt",data);
+    
+    if (data.status === 'success') {
+        return {
+            status: data.status,
+            payment: data.data
+        }
+    } else {
+        return {
+            status: data.status,
+            message:data.error,
+        }
+    }
+}
