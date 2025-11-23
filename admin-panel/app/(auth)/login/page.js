@@ -2,22 +2,13 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import LoginAction from "@/utils/actions/Login";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { loginSchema } from "@/utils/schemas/LoginSchema";
 
-
-// =======================
-//   Validation Schema
-// =======================
-const loginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("ایمیل معتبر نیست")
-    .required("ایمیل الزامی است"),
-  password: Yup.string()
-    .min(6, "رمز عبور نباید کمتر از 6 کاراکتر باشد")
-    .required("رمز عبور الزامی است"),
-});
-
+export default function Page() {
+  const router=useRouter();
 
 // =======================
 //   Submit Handler
@@ -27,19 +18,24 @@ async function handleSubmit(values, { resetForm, setSubmitting }) {
 
   //  درخواست (API)
     const result=await LoginAction(values)
-    console.log(result);
-    
+    if(result?.success){
+      toast.success(result.message||"شما با موفقیت وارد شدید", {
+        position: "bottom-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+      router.push("/")
+    }else{
+        toast.error(result.message||"متاسفیم مشکلی پیش آمده است بعدا تلاش کنید", {
+        position: "bottom-right",
+        autoClose: 2000,
+        theme: "colored",
+      });
+    }
   // ریست فرم
   resetForm();
   setSubmitting(false);
 }
-
-
-
-// =======================
-//       Component
-// =======================
-export default function Page() {
   return (
     <div className="row mt-5 justify-content-center align-items-center w-100">
       <div className="col-md-3">
