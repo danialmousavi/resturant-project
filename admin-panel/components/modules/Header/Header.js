@@ -1,6 +1,10 @@
-import React from "react";
+"use client"
+import AuthContext from "@/utils/context/AuthContext";
+import React, { useContext } from "react";
 
 export default function Header() {
+  const {user}=useContext(AuthContext);
+  
   return (
     <>
       <header className="navbar text-center navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -21,7 +25,7 @@ export default function Header() {
         <div className="w-100"></div>
         <div className="navbar-nav">
           <div className="nav-item text-nowrap d-flex align-items-center">
-            <span className="nav-link">علی شیخ</span>
+            <span className="nav-link">{user?.name}</span>
             <a className="nav-link px-3" href="#">
               خروج
             </a>

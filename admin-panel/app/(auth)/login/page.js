@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import LoginAction from "@/utils/actions/Login";
+import LoginAction from "@/utils/actions/Auth";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { loginSchema } from "@/utils/schemas/LoginSchema";

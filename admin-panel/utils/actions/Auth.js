@@ -52,3 +52,34 @@ export default async function LoginAction(values) {
 }
 
 
+export async function me() {
+    const token = cookies().get('Token')?.value
+
+    if (!token) {
+        return {
+            error: 'Not Authorized'
+        }
+    }
+
+    const res = await fetch("http://localhost:8000/api/admin-panel/auth/me",{
+      method:"POST",
+      headers:{
+        "Authorization":`Bearer ${token}`,
+        "Accept":"application/json"
+      },
+      body:JSON.stringify({})
+    })
+    const data=await res.json();
+    console.log("AUTH ME USER",data);
+    
+    if (data.status === 'success') {
+        return {
+            user: data.data
+        }
+    } else {
+        return {
+            error: "User Forbidden"
+        }
+    }
+
+}

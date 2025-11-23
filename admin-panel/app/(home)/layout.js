@@ -5,6 +5,7 @@ import ToastContainer from "@/components/libs/Toastify";
 import Header from "@/components/modules/Header/Header";
 import Sidebar from "@/components/modules/Sidebar/Sidebar";
 import { Suspense } from "react";
+import { AuthProvider } from "@/utils/context/AuthContext";
 
 export const metadata = {
   title: "Admin Panel",
@@ -16,21 +17,23 @@ export default function RootLayout({ children }) {
     <html lang="fa" dir="rtl">
       <body>
         <Suspense>
-          <ProgressProviders>
-            <Header />
-            <div className="container-fluid">
-              <div className="row">
-                <Sidebar />
+          <AuthProvider>
+            <ProgressProviders>
+              <Header />
+              <div className="container-fluid">
+                <div className="row">
+                  <Sidebar />
 
-                <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
-                  {children}
-                </main>
+                  <main className="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-4">
+                    {children}
+                  </main>
+                </div>
               </div>
-            </div>
 
-            <ToastContainer />
-            <Bootstrap />
-          </ProgressProviders>
+              <ToastContainer />
+              <Bootstrap />
+            </ProgressProviders>
+          </AuthProvider>
         </Suspense>
       </body>
     </html>
