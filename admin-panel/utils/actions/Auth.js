@@ -5,14 +5,17 @@ import { extractErrorMessage } from "../extractErrorMessage";
 
 export default async function LoginAction(values) {
   try {
-    const res = await fetch("http://localhost:8000/api/admin-panel/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-      body: JSON.stringify(values),
-    });
+    const res = await fetch(
+      "http://localhost:8000/api/admin-panel/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify(values),
+      }
+    );
 
     const data = await res.json();
 
@@ -39,7 +42,6 @@ export default async function LoginAction(values) {
       message: extractErrorMessage(data), // تابع کمکی
       data: null,
     };
-
   } catch (err) {
     console.log("❌ خطای لاگین:", err);
 
@@ -51,35 +53,62 @@ export default async function LoginAction(values) {
   }
 }
 
-
 export async function me() {
-    const token = cookies().get('Token')?.value
+  const token = cookies().get("Token")?.value;
 
-    if (!token) {
-        return {
-            error: 'Not Authorized'
-        }
-    }
+  if (!token) {
+    return {
+      error: "Not Authorized",
+    };
+  }
 
-    const res = await fetch("http://localhost:8000/api/admin-panel/auth/me",{
-      method:"POST",
-      headers:{
-        "Authorization":`Bearer ${token}`,
-        "Accept":"application/json"
-      },
-      body:JSON.stringify({})
-    })
-    const data=await res.json();
-    console.log("AUTH ME USER",data);
-    
-    if (data.status === 'success') {
-        return {
-            user: data.data
-        }
-    } else {
-        return {
-            error: "User Forbidden"
-        }
-    }
+  const res = await fetch("http://localhost:8000/api/admin-panel/auth/me", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+  const data = await res.json();
+  // console.log("AUTH ME USER", data);
 
+  if (data.status === "success") {
+    return {
+      user: data.data,
+    };
+  } else {
+    return {
+      error: "User Forbidden",
+    };
+  }
+}
+export async function LogoutAction() {
+  const token = cookies().get("Token").value;
+  if (!token) {
+    return {
+      error: "Not Authorized",
+    };
+  }
+  const res = await fetch("http://localhost:8000/api/admin-panel/auth/logout", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+  const data = await res.json();
+  if (data.status == "success") {
+    cookies().delete("Token");
+    return {
+      success: true,
+      message: "شما با موفقیت از اکانت خود خارج شدید",
+    };
+  } else {
+    return {
+      success: true,
+      message: "متاسفیم مشکلی پیش آمده است",
+    };
+  }
 }

@@ -9,6 +9,9 @@ const AuthContext=createContext();
 
 export const AuthProvider=({children})=>{
     const [user,setUser]=useState();
+    const logoutContext=()=>{
+        setUser(null);
+    }
     useEffect(() => {
         const checkUserLoggedIn = async () => {
             const data = await me();
@@ -24,7 +27,7 @@ export const AuthProvider=({children})=>{
         checkUserLoggedIn();
     }, [])
     return(
-            <AuthContext.Provider value={{user}}>
+            <AuthContext.Provider value={{user,logoutContext}}>
                 {children}
             </AuthContext.Provider>
     )
