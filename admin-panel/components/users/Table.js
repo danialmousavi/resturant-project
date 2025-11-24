@@ -84,7 +84,7 @@ export default async function Table({ params }) {
                 <td>{user.created_at}</td>
                 <td>
                   <div className="d-flex">
-                    <Link href="#" className="btn btn-sm btn-outline-dark me-2">
+                    <Link href={`users/${user.id}`} className="btn btn-sm btn-outline-dark me-2">
                       نمایش
                     </Link>
                     <Link href="#" className="btn btn-sm btn-dark">
