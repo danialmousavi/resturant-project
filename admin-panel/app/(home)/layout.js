@@ -1,5 +1,4 @@
 import ProgressProviders from "@/components/libs/ProgressBarProvider";
-import "./globals.css";
 import Bootstrap from "@/components/libs/Bootstrap";
 import ToastContainer from "@/components/libs/Toastify";
 import Header from "@/components/modules/Header/Header";
