@@ -1,3 +1,4 @@
+import DeleteUser from "@/components/users/DeleteUser";
 import { cookies } from "next/headers";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -53,7 +54,7 @@ export default async function page({ params }) {
           />
         </div>
 
-        {/* <DeleteUser id={user.id} /> */}
+        <DeleteUser id={user.id} />
       </div>
     </>
   );
