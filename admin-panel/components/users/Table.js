@@ -87,7 +87,7 @@ export default async function Table({ params }) {
                     <Link href={`users/${user.id}`} className="btn btn-sm btn-outline-dark me-2">
                       نمایش
                     </Link>
-                    <Link href="#" className="btn btn-sm btn-dark">
+                    <Link href={`users/edit/${user.id}`} className="btn btn-sm btn-dark">
                       ویرایش
                     </Link>
                   </div>
