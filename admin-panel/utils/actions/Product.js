@@ -140,3 +140,63 @@ export async function DeleteProductAction(userId) {
     };
   }
 }
+
+export async function editProductAction(id, values) {
+  try {
+    const token = cookies().get("Token")?.value;
+
+    if (!token) {
+      return {
+        success: false,
+        message: "توکن معتبر نیست. لطفاً دوباره وارد شوید.",
+      };
+    }
+
+    const res = await fetch(`http://localhost:8000/api/admin-panel/products/${id}`, {
+      method: "POST", // یا "PATCH" بسته به API سرور
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: values, // FormData
+    });
+
+    let data;
+    try {
+      data = await res.json();
+      console.log("data", data);
+    } catch (e) {
+      return {
+        success: false,
+        message: "پاسخ نامعتبر از سرور دریافت شد.",
+      };
+    }
+
+    if (data.status === "error") {
+      return {
+        success: false,
+        message: extractErrorMessage(data),
+      };
+    }
+
+    if (data.status === "success") {
+      await revalidatePath("/products"); // مسیر صفحه لیست محصولات
+
+      return {
+        success: true,
+        message: "محصول با موفقیت ویرایش شد",
+      };
+    }
+
+    return {
+      success: false,
+      message: "پاسخ سرور نامعتبر است.",
+    };
+  } catch (err) {
+    console.log("❌ Error in editProductAction:", err);
+    return {
+      success: false,
+      message: "خطایی در اتصال به سرور رخ داد.",
+    };
+  }
+}

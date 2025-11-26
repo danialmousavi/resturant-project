@@ -30,3 +30,16 @@ export const CreateProductSchema = Yup.object().shape({
       return [...value].every((file) => file instanceof File);
     }),
 });
+
+  // -------------------------
+  // Yup Schema
+  // -------------------------
+  export const EditSchema = Yup.object().shape({
+    name: Yup.string().required("نام اجباری است"),
+    category_id: Yup.string().required("دسته بندی لازم است"),
+    price: Yup.number().required("قیمت لازم است"),
+    quantity: Yup.number().required("تعداد لازم است"),
+    description: Yup.string().required("توضیحات لازم است"),
+    status: Yup.string().required("وضعیت لازم است"),
+    
+  });
