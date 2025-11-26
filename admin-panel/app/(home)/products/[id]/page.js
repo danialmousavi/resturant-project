@@ -1,3 +1,4 @@
+import DeleteProduct from "@/components/products/DeleteProduct";
 import { getBlurDataURL, numberFormat } from "@/utils/helper";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -87,7 +88,7 @@ export default async function ProductPage({ params }) {
                     ) : null}
                 </div>
 
-                {/* <DeleteProduct id={product.id} /> */}
+                <DeleteProduct id={product.id} />
             </div>
         </>
     )
