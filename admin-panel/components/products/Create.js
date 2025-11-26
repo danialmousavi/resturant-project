@@ -69,14 +69,12 @@ export default function CreateProduct({ categories }) {
           theme: "colored",
         });
         router.replace("/products")
-        resetForm()
       }else{
         toast.error(result.message || "متاسفانه مشکلی در ایجاد محصول پیش آمده بعدا تلاش کنید", {
           position: "bottom-right",
           autoClose: 2000,
           theme: "colored",
         });
-        resetForm()
       }
       console.log("result", result);
     } catch (error) {
@@ -85,6 +83,8 @@ export default function CreateProduct({ categories }) {
 
     setSubmitting(false);
     resetForm();
+    setPreviewImage(null);
+    setDateOnSale([])
   };
 
   // -------------------------
