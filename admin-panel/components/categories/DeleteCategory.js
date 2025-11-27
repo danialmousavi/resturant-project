@@ -7,7 +7,7 @@ export default function DeleteCategory({id}) {
     const router=useRouter()
 
     const handleDleteCategory=async()=>{
-        console.log(id);
+        // console.log(id);
         const result=await DeleteCategoryAction(id);
         if(!result.success){
             toast.error(result.message||"مشکلی پیش آمده است لطفا بعدا تلاش کنید")
