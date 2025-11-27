@@ -5,6 +5,7 @@ import { useState } from "react";
 import { createCategoryAction } from "@/utils/actions/Category";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { CategorySchema } from "@/utils/schemas/Category";
 
 export default function Page() {
   const [pending, setPending] = useState(false);
