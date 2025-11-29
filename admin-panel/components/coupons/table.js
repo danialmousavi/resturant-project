@@ -82,7 +82,7 @@ export default async function Table({ params }) {
                 </table>
             </div>
 
-            <Paginate links={meta.links} />
+            <Paginate links={meta?.links} />
         </>
     )
 }
