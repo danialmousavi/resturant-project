@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <>
         <header className="navbar text-center navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">webprog.io</a>
+            <a className="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Admin panel</a>
             <button className="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
                 aria-label="Toggle navigation">
